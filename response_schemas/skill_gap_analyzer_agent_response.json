@@ -1,0 +1,56 @@
+{
+  "agent_name": "Skill Gap Analyzer Agent",
+  "agent_id": "699963050fc64800c899bb8f",
+  "description": "Extracts skills from resume text and job description text, identifies matched and missing skills, calculates a readiness score (percentage), generates a learning roadmap, and recommends free online courses from Coursera, edX, YouTube, and freeCodeCamp for each missing skill.",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "readiness_score": "number",
+    "matched_skills": [
+      "string"
+    ],
+    "missing_skills": [
+      "string"
+    ],
+    "recommended_courses": [
+      {
+        "skill": "string",
+        "course_name": "string",
+        "platform": "string",
+        "description": "string"
+      }
+    ],
+    "learning_roadmap": "string",
+    "resume_skills_extracted": [
+      "string"
+    ],
+    "job_description_skills_extracted": [
+      "string"
+    ]
+  },
+  "example_response": {
+    "readiness_score": 0,
+    "matched_skills": [
+      "sample string"
+    ],
+    "missing_skills": [
+      "sample string"
+    ],
+    "recommended_courses": [
+      {
+        "skill": "The missing skill this course addresses",
+        "course_name": "Name of the recommended course",
+        "platform": "Platform offering the course (Coursera, edX, YouTube, freeCodeCamp)",
+        "description": "Brief description of the course"
+      }
+    ],
+    "learning_roadmap": "Narrative learning path to acquire missing skills",
+    "resume_skills_extracted": [
+      "sample string"
+    ],
+    "job_description_skills_extracted": [
+      "sample string"
+    ]
+  }
+}

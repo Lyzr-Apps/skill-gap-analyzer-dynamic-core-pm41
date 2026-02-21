@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "User Input (Resume + Job Description)",
+      "nodeCategory": "input"
+    },
+    {
+      "id": "skill_gap_analyzer",
+      "type": "Agent",
+      "label": "Skill Gap Analyzer Agent",
+      "nodeCategory": "agent"
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "Skill Gap Analysis Results",
+      "nodeCategory": "end"
+    }
+  ],
+  "edges": [
+    {
+      "source": "input_node",
+      "target": "skill_gap_analyzer"
+    },
+    {
+      "source": "skill_gap_analyzer",
+      "target": "output_node"
+    }
+  ]
+}

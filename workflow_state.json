@@ -1,0 +1,10 @@
+{
+  "agents": {
+    "skill_gap_analyzer": {
+      "agent_id": "699963050fc64800c899bb8f",
+      "name": "Skill Gap Analyzer Agent",
+      "provider": "perplexity",
+      "model": "sonar-pro"
+    }
+  }
+}
