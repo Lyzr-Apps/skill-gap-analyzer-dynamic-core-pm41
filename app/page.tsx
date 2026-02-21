@@ -1,11 +1,14 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
+import dynamic from 'next/dynamic'
 import { useAIAgent } from '@/lib/aiAgent'
 import { FiCheck, FiX, FiCopy, FiRefreshCw, FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { SiCoursera, SiYoutube } from 'react-icons/si'
 import { HiOutlineDocumentSearch, HiOutlineAcademicCap, HiOutlineLightBulb, HiOutlineCode } from 'react-icons/hi'
 import { BiBookOpen } from 'react-icons/bi'
+
+const Silk = dynamic(() => import('@/components/Silk'), { ssr: false })
 
 // ─── TypeScript Interfaces ─────────────────────────────────────────────────
 
@@ -355,9 +358,21 @@ export default function Page() {
 
   return (
     <PageErrorBoundary>
-      <div className="min-h-screen bg-[hsl(160,30%,4%)] text-[hsl(160,20%,95%)] font-sans">
+      <div className="min-h-screen bg-[hsl(160,30%,4%)] text-[hsl(160,20%,95%)] font-sans relative">
+        {/* ─── Silk WebGL Background ─────────────────────────────── */}
+        <div className="fixed inset-0 z-0">
+          <Silk
+            speed={3}
+            scale={1}
+            color="#0F4F3A"
+            noiseIntensity={1.2}
+            rotation={0}
+          />
+          <div className="absolute inset-0 bg-[hsl(160,30%,4%)]/70" />
+        </div>
+
         {/* ─── Header ─────────────────────────────────────────────── */}
-        <header className="sticky top-0 z-30 border-b border-[hsl(160,22%,15%)] bg-[hsl(160,30%,4%)]/90 backdrop-blur-md">
+        <header className="sticky top-0 z-30 border-b border-[hsl(160,22%,15%)]/60 bg-[hsl(160,30%,4%)]/80 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-[hsl(160,70%,40%)]/20 flex items-center justify-center flex-shrink-0">
@@ -383,7 +398,7 @@ export default function Page() {
         </header>
 
         {/* ─── Main Content ───────────────────────────────────────── */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-6">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-6">
             {/* ─── Input Panel (Left) ─────────────────────────────── */}
             <div className="space-y-5">
@@ -395,7 +410,7 @@ export default function Page() {
                   onChange={(e) => setResumeText(e.target.value)}
                   placeholder="Paste your resume content here..."
                   rows={8}
-                  className="w-full px-4 py-3 bg-[hsl(160,22%,20%)] border border-[hsl(160,22%,15%)] rounded-xl text-sm text-[hsl(160,20%,95%)] placeholder:text-[hsl(160,15%,40%)] focus:outline-none focus:ring-2 focus:ring-[hsl(160,70%,40%)]/50 focus:border-[hsl(160,70%,40%)] resize-y transition-colors"
+                  className="w-full px-4 py-3 bg-[hsl(160,22%,20%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60 rounded-xl text-sm text-[hsl(160,20%,95%)] placeholder:text-[hsl(160,15%,40%)] focus:outline-none focus:ring-2 focus:ring-[hsl(160,70%,40%)]/50 focus:border-[hsl(160,70%,40%)] resize-y transition-colors"
                 />
               </div>
 
@@ -407,7 +422,7 @@ export default function Page() {
                   onChange={(e) => setJobDescText(e.target.value)}
                   placeholder="Paste the target job description here..."
                   rows={8}
-                  className="w-full px-4 py-3 bg-[hsl(160,22%,20%)] border border-[hsl(160,22%,15%)] rounded-xl text-sm text-[hsl(160,20%,95%)] placeholder:text-[hsl(160,15%,40%)] focus:outline-none focus:ring-2 focus:ring-[hsl(160,70%,40%)]/50 focus:border-[hsl(160,70%,40%)] resize-y transition-colors"
+                  className="w-full px-4 py-3 bg-[hsl(160,22%,20%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60 rounded-xl text-sm text-[hsl(160,20%,95%)] placeholder:text-[hsl(160,15%,40%)] focus:outline-none focus:ring-2 focus:ring-[hsl(160,70%,40%)]/50 focus:border-[hsl(160,70%,40%)] resize-y transition-colors"
                 />
               </div>
 
@@ -444,7 +459,7 @@ export default function Page() {
               )}
 
               {/* Agent Info */}
-              <div className="mt-4 p-4 rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)]">
+              <div className="mt-4 p-4 rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60">
                 <h3 className="text-xs font-semibold text-[hsl(160,15%,60%)] uppercase tracking-wider mb-3">Agent Status</h3>
                 <div className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full flex-shrink-0 ${activeAgentId === AGENT_ID ? 'bg-[hsl(160,70%,40%)] animate-pulse' : result ? 'bg-[hsl(160,70%,40%)]' : 'bg-[hsl(160,22%,20%)]'}`} />
@@ -464,7 +479,7 @@ export default function Page() {
             <div className="min-h-[500px]">
               {/* Loading state */}
               {loading && (
-                <div className="p-6 rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)]">
+                <div className="p-6 rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60">
                   <ResultsSkeleton />
                 </div>
               )}
@@ -494,7 +509,7 @@ export default function Page() {
               {/* Empty state */}
               {!result && !loading && !errorMsg && (
                 <div className="h-full flex flex-col items-center justify-center py-20 text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-[hsl(160,25%,12%)] flex items-center justify-center mb-4">
+                  <div className="w-16 h-16 rounded-2xl bg-[hsl(160,25%,12%)]/80 backdrop-blur-sm flex items-center justify-center mb-4">
                     <HiOutlineDocumentSearch className="w-8 h-8 text-[hsl(160,15%,40%)]" />
                   </div>
                   <h3 className="text-base font-semibold text-[hsl(160,15%,60%)] mb-1 tracking-tight">No analysis yet</h3>
@@ -506,7 +521,7 @@ export default function Page() {
               {result && !loading && (
                 <div className="space-y-5">
                   {/* Readiness Score */}
-                  <div className="p-6 rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)]">
+                  <div className="p-6 rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60">
                     <h2 className="text-sm font-semibold text-[hsl(160,15%,60%)] uppercase tracking-wider mb-4">Readiness Score</h2>
                     <ScoreGauge score={result.readiness_score ?? 0} />
                   </div>
@@ -514,7 +529,7 @@ export default function Page() {
                   {/* Matched & Missing Skills */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Matched Skills */}
-                    <div className="p-5 rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)]">
+                    <div className="p-5 rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60">
                       <h2 className="text-sm font-semibold text-[hsl(160,20%,95%)] mb-3 flex items-center gap-2">
                         <FiCheck className="w-4 h-4 text-[hsl(160,70%,40%)]" />
                         Matched Skills
@@ -533,7 +548,7 @@ export default function Page() {
                     </div>
 
                     {/* Missing Skills */}
-                    <div className="p-5 rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)]">
+                    <div className="p-5 rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60">
                       <h2 className="text-sm font-semibold text-[hsl(160,20%,95%)] mb-3 flex items-center gap-2">
                         <FiX className="w-4 h-4 text-[hsl(30,80%,50%)]" />
                         Missing Skills
@@ -554,7 +569,7 @@ export default function Page() {
 
                   {/* Recommended Courses */}
                   {courses.length > 0 && (
-                    <div className="p-5 rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)]">
+                    <div className="p-5 rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60">
                       <h2 className="text-sm font-semibold text-[hsl(160,20%,95%)] mb-4 flex items-center gap-2">
                         <HiOutlineAcademicCap className="w-4 h-4 text-[hsl(160,70%,40%)]" />
                         Recommended Courses
@@ -589,7 +604,7 @@ export default function Page() {
 
                   {/* Learning Roadmap (Collapsible) */}
                   {(result.learning_roadmap ?? '').length > 0 && (
-                    <div className="rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)] overflow-hidden">
+                    <div className="rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60 overflow-hidden">
                       <button
                         onClick={() => setRoadmapOpen(prev => !prev)}
                         className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-[hsl(160,25%,12%)]/30 transition-colors"
@@ -610,7 +625,7 @@ export default function Page() {
 
                   {/* Extracted Skills (Collapsible) */}
                   {(resumeExtracted.length > 0 || jobExtracted.length > 0) && (
-                    <div className="rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)] overflow-hidden">
+                    <div className="rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60 overflow-hidden">
                       <button
                         onClick={() => setExtractedSkillsOpen(prev => !prev)}
                         className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-[hsl(160,25%,12%)]/30 transition-colors"
@@ -649,7 +664,7 @@ export default function Page() {
                   )}
 
                   {/* Raw JSON (Collapsible) */}
-                  <div className="rounded-xl bg-[hsl(160,30%,6%)] border border-[hsl(160,22%,15%)] overflow-hidden">
+                  <div className="rounded-xl bg-[hsl(160,30%,6%)]/80 backdrop-blur-sm border border-[hsl(160,22%,15%)]/60 overflow-hidden">
                     <button
                       onClick={() => setJsonOpen(prev => !prev)}
                       className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-[hsl(160,25%,12%)]/30 transition-colors"
